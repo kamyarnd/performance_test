@@ -1,0 +1,159 @@
+<!doctype html>
+<html>
+
+<head>
+    <script type="text/javascript" src="./scripts/jquery.js"></script>
+    <script type="text/javascript" src="./scripts/turn.js"></script>
+    <style type="text/css">
+        @font-face {
+            font-family: "dana";
+            font-display: swap;
+            src: local("dana"), url("./fonts/Dana/woff2/DanaFaNum-DemiBold.woff2") format("woff2");
+        }
+
+        body {
+            background: #e2e2e2;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            font-family: "dana", sans-serif;
+        }
+
+        #magazine .turn-page {
+            background-color: #fff;
+            background-size: contain;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        #magazine {
+            position: relative;
+            width: 1828px;
+            /* عرض واقعی عکس */
+            height: calc(1828px * 2583 / 1828);
+            /* یعنی 2583px */
+            /* نسبت جدید */
+            max-height: 90vh;
+            direction: ltr;
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.25);
+            border-radius: 12px;
+            background: #ffffff00;
+            overflow: hidden;
+        }
+
+        .hint {
+            position: absolute;
+            /* خیلی مهم */
+            top: 10px;
+            right: 10px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            color: #333;
+            font-size: 14px;
+            opacity: 0.7;
+            animation: fadeInOut 2s infinite ease-in-out;
+            user-select: none;
+            pointer-events: none;
+        }
+
+        .hint-in {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+        }
+
+        .hint-in .arrow {
+            width: 8px;
+            height: 8px;
+            border-right: 2px solid #333;
+            border-bottom: 2px solid #333;
+            transform: rotate(-45deg);
+            animation: arrowMove 1.5s infinite ease-in-out;
+        }
+
+
+        @keyframes arrowMove {
+            0% {
+                transform: rotate(45deg) translate(0, 0);
+                opacity: 0.6;
+            }
+
+            50% {
+                transform: rotate(45deg) translate(4px, 4px);
+                opacity: 1;
+            }
+
+            100% {
+                transform: rotate(45deg) translate(0, 0);
+                opacity: 0.6;
+            }
+        }
+
+        @keyframes fadeInOut {
+
+            0%,
+            100% {
+                opacity: 0.5;
+            }
+
+            50% {
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- ✨ اشاره ظریف -->
+    <div class="hint">
+        <div class="hint-in">
+            <span>ورق بزنید</span>
+            <div class="arrow"></div>
+        </div>
+    </div>
+    <div id="magazine">
+        <div style="background-image:url(images/1.jpg);"></div>
+        <div style="background-image:url(images/2.jpg);"></div>
+        <div style="background-image:url(images/3.jpg);"></div>
+        <div style="background-image:url(images/4.jpg);"></div>
+        <div style="background-image:url(images/5.jpg);"></div>
+        <div style="background-image:url(images/6.jpg);"></div>
+        <div style="background-image:url(images/7.jpg);"></div>
+        <div style="background-image:url(images/8.jpg);"></div>
+        <div style="background-image:url(images/9.jpg);"></div>
+        <div style="background-image:url(images/10.jpg);"></div>
+        <div style="background-image:url(images/11.jpg);"></div>
+        <div style="background-image:url(images/12.jpg);"></div>
+        <div style="background-image:url(images/13.jpg);"></div>
+        <div style="background-image:url(images/14.jpg);"></div>
+        <div style="background-image:url(images/15.jpg);"></div>
+        <div style="background-image:url(images/16.jpg);"></div>
+    </div>
+
+    <script type="text/javascript">
+        $(window).ready(function () {
+            $('#magazine').turn({
+                display: 'single',
+                acceleration: true,
+                gradients: !$.isTouch,
+                elevation: 50
+            });
+        });
+
+        $(window).bind('keydown', function (e) {
+            if (e.keyCode == 37)
+                $('#magazine').turn('previous');
+            else if (e.keyCode == 39)
+                $('#magazine').turn('next');
+        });
+    </script>
+</body>
+
+</html>
